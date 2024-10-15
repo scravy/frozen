@@ -1,5 +1,5 @@
 from collections import namedtuple
-from collections.abc import Mapping, Iterator
+from collections.abc import Mapping, Iterator, Sequence
 from types import MappingProxyType
 from typing import Self, TypeVar
 
@@ -49,6 +49,16 @@ class frozendict(_frozendict_core, Mapping[K, V]):
 
     def __hash__(self) -> int:
         return self._0
+
+    def __add__(self, other) -> Self:
+        if isinstance(other, Mapping):
+            return frozendict(self, other)
+        raise TypeError(f"unsupported operation: {type(self).__name__} + {type(other).__name__}")
+
+    def __or__(self, other) -> Self:
+        if isinstance(other, Mapping):
+            return frozendict(self, other)
+        raise TypeError(f"unsupported operation: {type(self).__name__} | {type(other).__name__}")
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, type(self)):

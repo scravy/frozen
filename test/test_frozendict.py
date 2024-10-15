@@ -205,3 +205,17 @@ def test_invalid_invocation() -> None:
     assert frozendict(("foo", 1)) == frozendict({"foo": 1})
     with pytest.raises(TypeError):
         frozendict((1, 2, 3))  # type: ignore[arg-type]
+
+
+def test_add() -> None:
+    fd = frozendict(a=3, b=9) + {"c": 17}
+    assert fd == frozendict(a=3, b=9, c=17)
+    fd = frozendict(a=3, b=9) + frozendict(c=17)
+    assert fd == frozendict(a=3, b=9, c=17)
+
+
+def test_or() -> None:
+    fd = frozendict(a=3, b=9) | {"c": 17}
+    assert fd == frozendict(a=3, b=9, c=17)
+    fd = frozendict(a=3, b=9) | frozendict(c=17)
+    assert fd == frozendict(a=3, b=9, c=17)
