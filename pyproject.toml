@@ -1,0 +1,66 @@
+[build-system]
+requires = [
+    "setuptools >= 75.1.0",
+    "wheel >= 0.44.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+version = "1.0.1"
+name = "frzn"
+requires-python = ">=3.11"
+authors = [
+  { name="Julian Bertram", email="tirednesscankill@warhog.net" },
+]
+description = "A simple frozendict in pure python."
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://github.com/scravy/frozen"
+Issues = "https://github.com/scravy/frozen/issues"
+
+[project.optional-dependencies]
+dev = [
+    "black == 24.10.0",
+    "build == 1.2.1",
+    "flake8 == 7.1.1",
+    "mypy == 1.11.2",
+    "pylint == 3.3.0",
+    "pytest == 8.3.3",
+    "pytest-cov == 5.0.0",
+    "pytest-random-order == 1.1.1",
+    "twine == 5.1.1",
+    "wheel == 0.44.0",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"*" = ["py.typed"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.setuptools.packages.find]
+where = [
+    "src",
+]
+namespaces = false
+
+[tool.pytest.ini_options]
+minversion = "8.3.3"
+addopts = "--random-order -s --cov-fail-under=95 --cov-report html:coverage --cov=frzn"
+pythonpath = ["src"]
+testpaths = ["test"]
+python_files = ["test_*.py"]
+python_functions = ["test"]
